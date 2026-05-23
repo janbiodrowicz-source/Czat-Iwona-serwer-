@@ -1,0 +1,21 @@
+Please implement the following major feature updates and UI restructuring:
+​Persistent Session & Logout:
+​Ensure the user remains logged in indefinitely until they explicitly choose to log out.
+​Locate the "Online" text with the green dot at the top and replace it with a "Log Out" ("Wyloguj Mnie") interactive button/action. Clicking it must clear the session and return the user to the login screen.
+​Bottom Navigation Bar & Rooms System (Messenger/WhatsApp Style):
+​Create a modern navigation bar at the bottom of the chat interface.
+​Add a tab named "Rooms" ("Pokoje") to this bar. Inside the Rooms tab, add a "Create Room" ("Dodaj Pokój") option.
+​Clicking "Create Room" should open a creation flow allowing the creator to set a custom Room Name and choose a privacy setting: Public (Open/Otwarty) or Private (Closed/Zamknięty).
+​Public Rooms: Anyone can see them in the list and click an option to "Join Room" ("Dołącz do pokoju").
+​Private Rooms: Access is restricted. Only the room creator sees an option to "Add to Room" ("Dodaj do pokoju") to invite other users.
+​Created rooms should dynamically appear as a list inside the "Rooms" tab.
+​UI Relocation & Users Search:
+​Move the "Online Users" list from its current top position down to the new bottom navigation bar. Rename this tab to "Users" ("Użytkownicy") and preserve its icon.
+​Add a Search Bar inside the "Users" tab to allow filtering and searching for specific users by name.
+​Icon Styling: Style these new navigation icons to match the design language of the "Administrator" element, but use white text instead of purple.
+​Dynamic Profile Avatars & Upload:
+​In the "My Profile" section, implement a "Change Profile Picture" ("Dodaj Zdjęcie Profilowe") functionality to let users upload custom avatars.
+​Presence Indicators: Dynamically style the user's avatar based on their connection status:
+​If a user is Online, add a purple tint/border to their profile picture.
+​If a user is Offline, make their profile picture dark, desaturated, or grayscale.
+​Please refactor the HTML layout, CSS structures (especially for the bottom navigation and grids), and JavaScript state management to fully support these cross-functional systems.

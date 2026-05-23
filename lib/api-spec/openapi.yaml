@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Chat App API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: messages
+    description: Chat message operations
+  - name: users
+    description: User operations
+  - name: dm
+    description: Direct message operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /messages:
+    get:
+      operationId: listMessages
+      tags: [messages]
+      summary: Get chat history
+      description: Returns recent chat messages
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChatMessage"
+
+  /users/online:
+    get:
+      operationId: listOnlineUsers
+      tags: [users]
+      summary: Get online users
+      description: Returns list of currently online users
+      responses:
+        "200":
+          description: List of online users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OnlineUser"
+
+  /dm/{otherUsername}:
+    get:
+      operationId: getDmHistory
+      tags: [dm]
+      summary: Get DM history
+      description: Returns direct message history between me and another user
+      parameters:
+        - name: otherUsername
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: me
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The requesting user's username
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        "200":
+          description: List of DMs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DmMessage"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ChatMessage:
+      type: object
+      required: [id, username, text, timestamp]
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        text:
+          type: string
+        timestamp:
+          type: string
+        imageUrl:
+          type: string
+
+    OnlineUser:
+      type: object
+      required: [username, socketId, joinedAt]
+      properties:
+        username:
+          type: string
+        socketId:
+          type: string
+        joinedAt:
+          type: string
+
+    DmMessage:
+      type: object
+      required: [id, from, to, text, timestamp]
+      properties:
+        id:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        text:
+          type: string
+        timestamp:
+          type: string
+        imageUrl:
+          type: string
